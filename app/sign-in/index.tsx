@@ -26,11 +26,16 @@ export default function AuthScreen() {
 
     setLoading(true);
     try {
-      const res = await axios.post(rootPointAPI + "/login", {
-        email,
-        password,
-      });
+      const res = await axios.get(rootPointAPI + "/login");
       if (res.data) {
+        const checkUser = res.data.find(
+          (item: { username: string; password: string }) =>
+            item.username === email && item.password === password
+        );
+        if (!checkUser) {
+          Alert.alert("Error", "Invalid email or password");
+          return;
+        }
         hanldeLogin(res.data);
         route.push("/(tabs)");
       }
@@ -62,8 +67,7 @@ export default function AuthScreen() {
       <TouchableOpacity
         style={styles.button}
         onPress={handleSubmit}
-        disabled={loading}
-      >
+        disabled={loading}>
         <Text style={styles.buttonText}>
           {loading ? "Loading..." : "Login"}
         </Text>

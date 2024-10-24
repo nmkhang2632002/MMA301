@@ -51,6 +51,7 @@ const ItemUpdateModal = ({
     const index = coppyData.items.findIndex((item) => item.id === idItem);
     coppyData.items[index] = {
       ...newItem,
+      rating: "5.0",
     };
 
     try {
@@ -81,8 +82,7 @@ const ItemUpdateModal = ({
       animationType="slide"
       transparent={true}
       visible={modalVisible}
-      onRequestClose={() => setModalVisible("")}
-    >
+      onRequestClose={() => setModalVisible("")}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <ScrollView>
@@ -147,8 +147,7 @@ const ItemUpdateModal = ({
               <TouchableOpacity
                 style={styles.button}
                 onPress={handleUpdateItem}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 <Text style={styles.buttonText}>
                   {isLoading ? "...Loading" : "Update"}
                 </Text>
@@ -156,8 +155,7 @@ const ItemUpdateModal = ({
               <TouchableOpacity
                 style={[styles.button, styles.cancelButton]}
                 onPress={() => setModalVisible("")}
-                disabled={isLoading}
-              >
+                disabled={isLoading}>
                 <Text style={styles.buttonText}>Cancel</Text>
               </TouchableOpacity>
             </View>
